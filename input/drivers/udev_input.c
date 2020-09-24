@@ -332,10 +332,10 @@ static int16_t udev_mouse_get_pointer_x(const udev_input_mouse_t *mouse, bool sc
    double src_min;
    double src_width;
    int32_t x;
-
+   RARCH_ERR("[PJT] Getting Pointer X. ");
    if (!video_driver_get_viewport_info(&vp))
       return 0;
-
+   
    if (mouse->x_min < mouse->x_max) /* mouse coords are absolute */
    {
       src_min = mouse->x_min;
@@ -353,6 +353,9 @@ static int16_t udev_mouse_get_pointer_x(const udev_input_mouse_t *mouse, bool sc
    x  = -32767.0 + 65535.0 / src_width * (mouse->x_abs - src_min);
    x += (x < 0 ? -0.5 : 0.5);
 
+   RARCH_ERR("[PJT] Pointer X: %d ; X_ABS: %d ; X_MAX: %d ; X_MIN: %d; SRC_MIN: %d ; SRC_WIDTH: %d \n", 
+             x, mouse->x_abs, mouse->x_max, mouse->x_min, src_min, src_width);
+   
    if (x < -0x7fff)
       return -0x7fff;
    else if(x > 0x7fff)
@@ -825,6 +828,7 @@ static int16_t udev_lightgun_aiming_state(
       return 0;
 #else
    res_x = udev_mouse_get_pointer_x(mouse, false);
+   RARCH_ERR("[PJT] Mouse in port: %d - X: %d\n", port, res_x);
    res_y = udev_mouse_get_pointer_y(mouse, false);
 #endif
 

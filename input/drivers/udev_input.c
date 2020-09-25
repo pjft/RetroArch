@@ -828,9 +828,9 @@ static int16_t udev_lightgun_aiming_state(
       return 0;
 #else
    res_x = udev_mouse_get_pointer_x(mouse, false);
-   RARCH_ERR("[PJT] Mouse in port: %d - X: %d\n", port, res_x);
    res_y = udev_mouse_get_pointer_y(mouse, false);
 #endif
+   RARCH_ERR("[PJT] Mouse in port: %d - X: %d - Y: %d\n", port, res_x, res_y);
 
    inside =    (res_x >= -edge_detect) 
             && (res_y >= -edge_detect)

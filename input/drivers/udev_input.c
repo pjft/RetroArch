@@ -839,17 +839,17 @@ static int16_t udev_lightgun_aiming_state(
 
    int16_t g_res_x = udev_mouse_get_pointer_x(mouse, false);
    int16_t g_res_y = udev_mouse_get_pointer_y(mouse, false);
-   RARCH_ERR("[PJT] Mouse in port GOOD: %d - X: %d - Y: %d; inside: %d; edge_detect: %d", port, g_res_x, g_res_y, inside, edge_detect);
+   RARCH_ERR("[PJT] Mouse in port GOOD: %d - X: %d - Y: %d; inside: %d; edge_detect: %d\n\n", port, g_res_x, g_res_y, inside, edge_detect);
 
    switch ( id )
    {
       case RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X:
          if (inside || true)
-            return res_x;
+            return g_res_x;
          break;
       case RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y:
          if (inside || true)
-            return res_y;
+            return g_res_y;
          break;
       case RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN:
          return !inside;

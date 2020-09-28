@@ -1108,8 +1108,8 @@ static int16_t udev_input_state(
             /*aiming*/
             case RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X:
             case RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y:
-               return udev_pointer_state(udev, port, id == RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y,
-                  device == RARCH_DEVICE_POINTER_SCREEN);
+               /*return udev_pointer_state(udev, port, id == RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y,
+                  device == RARCH_DEVICE_POINTER_SCREEN);*/
             case RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN:
                RARCH_ERR("[PJT] AIMING - LIGHTGUN AIMING STATE");
                return udev_lightgun_aiming_state( udev, port, id );

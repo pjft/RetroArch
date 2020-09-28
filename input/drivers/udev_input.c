@@ -939,21 +939,28 @@ static bool udev_mouse_button_pressed(
 static int16_t udev_pointer_state(udev_input_t *udev,
       unsigned port, unsigned id, bool screen)
 {
+   RARCH_ERR("[PJT] POINTER STATE START! Screen: %d, Port: %d, id: %d\n", screen, port, id);
    udev_input_mouse_t *mouse = udev_get_mouse(udev, port);
 
-   if (!mouse)
+   if (!mouse) {
+      RARCH_ERR("[PJT] NO MOUSE!!!\n");
       return 0;
+   }
 
    switch (id)
    {
       case RETRO_DEVICE_ID_POINTER_X:
+         RARCH_ERR("[PJT] Pointer X \n");
          return udev_mouse_get_pointer_x(mouse, screen);
       case RETRO_DEVICE_ID_POINTER_Y:
+         RARCH_ERR("[PJT] Pointer Y \n");
          return udev_mouse_get_pointer_y(mouse, screen);
       case RETRO_DEVICE_ID_POINTER_PRESSED:
+         RARCH_ERR("[PJT] Pointer Pressed \n");
          return mouse->l;
    }
 
+   RARCH_ERR("[PJT] Returning 0");
    return 0;
 }
 

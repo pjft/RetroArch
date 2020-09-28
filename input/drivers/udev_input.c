@@ -820,18 +820,18 @@ static int16_t udev_lightgun_aiming_state(
    if (!mouse)
       return 0;
 
-#ifdef HAVE_X11
+/*#ifdef HAVE_X11
    RARCH_ERR("[PJT] X11 - WTF???\n");
    /* udev->pointer_x and y is only set in X11 */
-   if (!(video_driver_translate_coord_viewport_wrap(
+/*   if (!(video_driver_translate_coord_viewport_wrap(
                &vp, udev->pointer_x, udev->pointer_y,
                &res_x, &res_y, &res_screen_x, &res_screen_y)))
       return 0;
-#else
+#else*/
    RARCH_ERR("[PJT] NO X11\n");
    res_x = udev_mouse_get_pointer_x(mouse, false);
    res_y = udev_mouse_get_pointer_y(mouse, false);
-#endif
+/*#endif*/
    RARCH_ERR("[PJT] Mouse in port: %d - X: %d - Y: %d\n", port, res_x, res_y);
 
    inside =    (res_x >= -edge_detect) 

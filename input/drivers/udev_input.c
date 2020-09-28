@@ -1109,7 +1109,7 @@ static int16_t udev_input_state(
                RARCH_ERR("[PJT] AIMING - LIGHTGUN AIMING STATE");
                //return udev_lightgun_aiming_state( udev, port, id );
                return udev_pointer_state(udev, port, id,
-                  device == RARCH_DEVICE_POINTER_SCREEN);
+                  true);
 
                /*buttons*/
             case RETRO_DEVICE_ID_LIGHTGUN_TRIGGER:

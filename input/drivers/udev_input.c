@@ -332,7 +332,6 @@ static int16_t udev_mouse_get_pointer_x(const udev_input_mouse_t *mouse, bool sc
    double src_min;
    double src_width;
    int32_t x;
-   RARCH_ERR("[PJT] Getting Pointer X. ");
    if (!video_driver_get_viewport_info(&vp))
       return 0;
    
@@ -353,9 +352,6 @@ static int16_t udev_mouse_get_pointer_x(const udev_input_mouse_t *mouse, bool sc
    x  = -32767.0 + 65535.0 / src_width * (mouse->x_abs - src_min);
    x += (x < 0 ? -0.5 : 0.5);
 
-   RARCH_ERR("[PJT] Pointer X: %d ; X_ABS: %d ; X_MAX: %d ; X_MIN: %d; SRC_MIN: %d ; SRC_WIDTH: %d \n", 
-             x, mouse->x_abs, mouse->x_max, mouse->x_min, src_min, src_width);
-   
    if (x < -0x7fff)
       return -0x7fff;
    else if(x > 0x7fff)
@@ -821,7 +817,7 @@ static int16_t udev_lightgun_aiming_state(
       return 0;
 
 #ifdef HAVE_X11
-   RARCH_ERR("[PJT] X11 - WTF???\n");
+   //RARCH_ERR("[PJT] X11 - WTF???\n");
    /* udev->pointer_x and y is only set in X11 */
    if (!(video_driver_translate_coord_viewport_wrap(
                &vp, udev->pointer_x, udev->pointer_y,
@@ -829,9 +825,6 @@ static int16_t udev_lightgun_aiming_state(
       return 0;
    RARCH_ERR("[PJT] Mouse in port: %d - X: %d - Y: %d; Pointer X: %d, Pointer Y: %d, Screen Res X: %d, Screen Res Y: %d\n", port, res_x, res_y, 
       udev->pointer_x, udev->pointer_y, res_screen_x, res_screen_y);
-   res_x = udev_mouse_get_pointer_x(mouse, false);
-   res_y = udev_mouse_get_pointer_y(mouse, false);
-   RARCH_ERR("[PJT] Mouse in port GOOD: %d - X: %d - Y: %d\n", port, res_x, res_y);
 #else
    RARCH_ERR("[PJT] NO X11\n");
    res_x = udev_mouse_get_pointer_x(mouse, false);
@@ -843,6 +836,10 @@ static int16_t udev_lightgun_aiming_state(
             && (res_y >= -edge_detect)
             && (res_x <= edge_detect)
             && (res_y <= edge_detect);
+
+   int16_t g_res_x = udev_mouse_get_pointer_x(mouse, false);
+   int16_t g_res_y = udev_mouse_get_pointer_y(mouse, false);
+   RARCH_ERR("[PJT] Mouse in port GOOD: %d - X: %d - Y: %d\n; inside: %d; edge_detect: %d", port, g_res_x, g_res_y, inside, edge_detect);
 
    switch ( id )
    {
@@ -1116,12 +1113,12 @@ static int16_t udev_input_state(
                /*return udev_pointer_state(udev, port, id == RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y,
                   device == RARCH_DEVICE_POINTER_SCREEN);*/
             case RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN:
-               RARCH_ERR("[PJT] AIMING - LIGHTGUN AIMING STATE");
+               //RARCH_ERR("[PJT] AIMING - LIGHTGUN AIMING STATE");
                return udev_lightgun_aiming_state( udev, port, id );
 
                /*buttons*/
             case RETRO_DEVICE_ID_LIGHTGUN_TRIGGER:
-               RARCH_ERR("[PJT] TRIGGER PRESSED");
+               //RARCH_ERR("[PJT] TRIGGER PRESSED");
                return udev_input_lightgun_state(udev, joypad,
                      joypad_info,
                      binds,
@@ -1190,7 +1187,6 @@ static int16_t udev_input_state(
                /*deprecated*/
             case RETRO_DEVICE_ID_LIGHTGUN_X:
                {
-                  RARCH_ERR("[PJT] WEIRD ONE - MOUSE X?");
                   udev_input_mouse_t *mouse = udev_get_mouse(udev, port);
                   if (mouse)
                      return udev_mouse_get_x(mouse);
@@ -1198,7 +1194,6 @@ static int16_t udev_input_state(
                break;
             case RETRO_DEVICE_ID_LIGHTGUN_Y:
                {
-                  RARCH_ERR("[PJT] WEIRD ONE - MOUSE Y?");
                   udev_input_mouse_t *mouse = udev_get_mouse(udev, port);
                   if (mouse)
                      return udev_mouse_get_y(mouse);

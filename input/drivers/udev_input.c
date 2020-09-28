@@ -821,12 +821,14 @@ static int16_t udev_lightgun_aiming_state(
       return 0;
 
 #ifdef HAVE_X11
+   RARCH_ERR("[PJT] X11 - WTF???\n");
    /* udev->pointer_x and y is only set in X11 */
    if (!(video_driver_translate_coord_viewport_wrap(
                &vp, udev->pointer_x, udev->pointer_y,
                &res_x, &res_y, &res_screen_x, &res_screen_y)))
       return 0;
 #else
+   RARCH_ERR("[PJT] NO X11\n");
    res_x = udev_mouse_get_pointer_x(mouse, false);
    res_y = udev_mouse_get_pointer_y(mouse, false);
 #endif
@@ -939,28 +941,22 @@ static bool udev_mouse_button_pressed(
 static int16_t udev_pointer_state(udev_input_t *udev,
       unsigned port, unsigned id, bool screen)
 {
-   RARCH_ERR("[PJT] POINTER STATE START! Screen: %d, Port: %d, id: %d\n", screen, port, id);
    udev_input_mouse_t *mouse = udev_get_mouse(udev, port);
 
    if (!mouse) {
-      RARCH_ERR("[PJT] NO MOUSE!!!\n");
       return 0;
    }
 
    switch (id)
    {
       case RETRO_DEVICE_ID_POINTER_X:
-         RARCH_ERR("[PJT] Pointer X \n");
          return udev_mouse_get_pointer_x(mouse, screen);
       case RETRO_DEVICE_ID_POINTER_Y:
-         RARCH_ERR("[PJT] Pointer Y \n");
          return udev_mouse_get_pointer_y(mouse, screen);
       case RETRO_DEVICE_ID_POINTER_PRESSED:
-         RARCH_ERR("[PJT] Pointer Pressed \n");
          return mouse->l;
    }
 
-   RARCH_ERR("[PJT] Returning 0");
    return 0;
 }
 

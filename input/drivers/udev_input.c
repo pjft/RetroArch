@@ -1106,10 +1106,12 @@ static int16_t udev_input_state(
             case RETRO_DEVICE_ID_LIGHTGUN_SCREEN_X:
             case RETRO_DEVICE_ID_LIGHTGUN_SCREEN_Y:
             case RETRO_DEVICE_ID_LIGHTGUN_IS_OFFSCREEN:
+               RARCH_ERR("[PJT] AIMING - LIGHTGUN AIMING STATE");
                return udev_lightgun_aiming_state( udev, port, id );
 
                /*buttons*/
             case RETRO_DEVICE_ID_LIGHTGUN_TRIGGER:
+               RARCH_ERR("[PJT] TRIGGER PRESSED");
                return udev_input_lightgun_state(udev, joypad,
                      joypad_info,
                      binds,
@@ -1178,6 +1180,7 @@ static int16_t udev_input_state(
                /*deprecated*/
             case RETRO_DEVICE_ID_LIGHTGUN_X:
                {
+                  RARCH_ERR("[PJT] WEIRD ONE - MOUSE X?");
                   udev_input_mouse_t *mouse = udev_get_mouse(udev, port);
                   if (mouse)
                      return udev_mouse_get_x(mouse);
@@ -1185,6 +1188,7 @@ static int16_t udev_input_state(
                break;
             case RETRO_DEVICE_ID_LIGHTGUN_Y:
                {
+                  RARCH_ERR("[PJT] WEIRD ONE - MOUSE Y?");
                   udev_input_mouse_t *mouse = udev_get_mouse(udev, port);
                   if (mouse)
                      return udev_mouse_get_y(mouse);
